@@ -1,0 +1,42 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+  {% block title %}
+    PyShop
+  {% endblock title %}
+  </title>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css" />
+</head>
+<body>
+  {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+  {% endif %}
+  {% if authenticated_user %}
+    <a href="{% url 'website:profile' %}">{% trans 'MyProfile' %}</a>
+    <a href="{% url 'website:purchase-orders' %}">{% trans 'MyPurchases' %}</a>
+    <a href="{% url 'website:signout' %}">{% trans 'SignOut' %}</a>
+  {% else %}
+    {% include 'signin.html' %}
+  {% endif %}
+  <hr/>
+  <center>
+    <a href="{% url 'manager:index' %}">{% trans 'Manager' %}</a>
+  </center>
+  <hr/>
+  <center>
+    <a href='{% url 'website:index' %}'>{% trans "HomePage" %}</a>
+    {% for category in categories %}
+      <a href="{% url 'website:index' %}?category={{ category.description }}">{{ category.description }}</a>&nbsp;
+    {% endfor %}
+  </center>
+  {% block content %}
+  {% endblock content %}
+</body>
+</html>

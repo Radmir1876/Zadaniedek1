@@ -1,0 +1,9 @@
+{% extends 'manager_base.html' %}
+{% load i18n %}
+{% block title %}
+  {% trans 'ManagerModule' %}
+{% endblock title %}
+{% block content %}
+  <a href="{% url 'manager:categories' %}">{% trans 'Categories' %}</a><br/>
+  <a href="{% url 'manager:products' %}">{% trans 'Products' %}</a>
+{% endblock content %}
