@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+  {% block title %}
+    {% trans 'MyPurchases' %}
+  {% endblock title %}
+  </title>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css" />
+</head>
+<body>
+  {% block content %}
+    {% for purchase_order in purchase_orders %}
+      <a href="{% url 'website:purchase-order' purchase_order.id %}">ID: {{ purchase_order.id }}</a>
+      - Date: {{ purchase_order.timestamp }}
+      {% if purchase_order.cart is True %}
+        {% trans 'Pending' %}
+      {% else %}
+        {% trans 'Completed' %}
+      {% endif %}
+      <br/>
+    {% endfor %}
+  {% endblock content %}
+</body>
+</html>
